@@ -67,9 +67,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
-    errors: Object
+    errors: Object,
+    flash: Object
   },
   data: function data() {
     return {
@@ -87,8 +97,16 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.loading = true;
-      this.form.post(route("new-contact")).then(function (response) {
-        _this.loading = false;
+      this.form.post(route("new-contact"), {
+        preserveScroll: true,
+        onSuccess: function onSuccess() {
+          _this.form.reset();
+
+          _this.loading = false;
+        },
+        onError: function onError() {
+          _this.loading = false;
+        }
       });
     }
   }
@@ -124,14 +142,18 @@ var render = function() {
           _vm._v(" "),
           _c("h5", [
             _vm._v(
-              "Realizamos nuestros trabajos en base a los requerimientos que necesitas  con tecnología actualizada. "
+              "Puedes contactar con nosotros o ubicarnos en Salcedo-Ecuador. "
             )
           ])
         ]
       ),
       _vm._v(" "),
       _c("div", { staticClass: "mx-5 row my-5" }, [
-        _c("div", { staticClass: "col-sm-6" }, [
+        _c("div", { staticClass: "col-sm-6 card text-dark" }, [
+          _c("div", { staticClass: "card-header" }, [
+            _vm._v("Nuestra Ubicación")
+          ]),
+          _vm._v(" "),
           _c(
             "div",
             { staticClass: "embed-responsive embed-responsive-16by9" },
@@ -150,10 +172,50 @@ var render = function() {
           )
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "col-sm-6 text-dark" }, [
+        _c("div", { staticClass: "col-sm-6 card text-dark" }, [
+          _c("div", { staticClass: "card-header" }, [
+            _vm._v("Enviar un mensaje")
+          ]),
+          _vm._v(" "),
+          _vm.flash.success
+            ? _c(
+                "div",
+                {
+                  staticClass:
+                    "alert alert-success alert-dismissible fade show mt-2",
+                  attrs: { role: "alert" }
+                },
+                [
+                  _c("strong", [_vm._v("Gracias por escribirnos!.")]),
+                  _vm._v(
+                    " " +
+                      _vm._s(_vm.flash.success) +
+                      ".\n                        "
+                  ),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "close",
+                      attrs: {
+                        type: "button",
+                        "data-dismiss": "alert",
+                        "aria-label": "Close"
+                      }
+                    },
+                    [
+                      _c("span", { attrs: { "aria-hidden": "true" } }, [
+                        _vm._v("×")
+                      ])
+                    ]
+                  )
+                ]
+              )
+            : _vm._e(),
+          _vm._v(" "),
           _c(
             "form",
             {
+              staticClass: "mt-3",
               on: {
                 submit: function($event) {
                   $event.preventDefault()
@@ -164,8 +226,12 @@ var render = function() {
             [
               _c(
                 "div",
-                { staticClass: "form-outline mb-4" },
+                { staticClass: "form-group form-outline mb-4" },
                 [
+                  _c("label", { attrs: { for: "exampleInputPassword1" } }, [
+                    _vm._v("Nombres")
+                  ]),
+                  _vm._v(" "),
                   _c("input", {
                     directives: [
                       {
@@ -188,15 +254,6 @@ var render = function() {
                     }
                   }),
                   _vm._v(" "),
-                  _c(
-                    "label",
-                    {
-                      staticClass: "form-label",
-                      attrs: { for: "form4Example1" }
-                    },
-                    [_vm._v("Nombres")]
-                  ),
-                  _vm._v(" "),
                   _vm._l(_vm.errors.nombre, function(error, index) {
                     return error
                       ? _c("div", { key: index, staticClass: "text-danger" }, [
@@ -212,6 +269,10 @@ var render = function() {
                 "div",
                 { staticClass: "form-outline mb-4" },
                 [
+                  _c("label", { attrs: { for: "exampleInputPassword1" } }, [
+                    _vm._v("Email")
+                  ]),
+                  _vm._v(" "),
                   _c("input", {
                     directives: [
                       {
@@ -234,15 +295,6 @@ var render = function() {
                     }
                   }),
                   _vm._v(" "),
-                  _c(
-                    "label",
-                    {
-                      staticClass: "form-label",
-                      attrs: { for: "form4Example2" }
-                    },
-                    [_vm._v("Email")]
-                  ),
-                  _vm._v(" "),
                   _vm._l(_vm.errors.email, function(error, index) {
                     return error
                       ? _c("div", { key: index, staticClass: "text-danger" }, [
@@ -258,6 +310,10 @@ var render = function() {
                 "div",
                 { staticClass: "form-outline mb-4" },
                 [
+                  _c("label", { attrs: { for: "exampleInputPassword1" } }, [
+                    _vm._v("Asunto")
+                  ]),
+                  _vm._v(" "),
                   _c("input", {
                     directives: [
                       {
@@ -280,15 +336,6 @@ var render = function() {
                     }
                   }),
                   _vm._v(" "),
-                  _c(
-                    "label",
-                    {
-                      staticClass: "form-label",
-                      attrs: { for: "form4Example15" }
-                    },
-                    [_vm._v("Asunrto")]
-                  ),
-                  _vm._v(" "),
                   _vm._l(_vm.errors.asunto, function(error, index) {
                     return error
                       ? _c("div", { key: index, staticClass: "text-danger" }, [
@@ -304,6 +351,10 @@ var render = function() {
                 "div",
                 { staticClass: "form-outline mb-4" },
                 [
+                  _c("label", { attrs: { for: "exampleInputPassword1" } }, [
+                    _vm._v("Mensaje")
+                  ]),
+                  _vm._v(" "),
                   _c("textarea", {
                     directives: [
                       {
@@ -325,15 +376,6 @@ var render = function() {
                       }
                     }
                   }),
-                  _vm._v(" "),
-                  _c(
-                    "label",
-                    {
-                      staticClass: "form-label",
-                      attrs: { for: "form4Example3" }
-                    },
-                    [_vm._v("Mensaje")]
-                  ),
                   _vm._v(" "),
                   _vm._l(_vm.errors.mensaje, function(error, index) {
                     return error

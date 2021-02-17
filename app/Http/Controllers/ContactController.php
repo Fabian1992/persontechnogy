@@ -19,11 +19,11 @@ class ContactController extends Controller
     public function send(RqContacto $request)
     {
         $user= new User([
-            'email'=>'fabi.lopez1992@gmail.com'
+            'email'=>'info@persontechnology.com'
         ]);	
 		$data = array('email' => $request->email,'nombre'=>$request->nombre,'asunto'=>$request->asunto,'mensaje'=>$request->mensaje );
 		$user->notify(new NotyContacto($data));
-    	$request->session()->flash('success','Soysoftware te da la bienvenida y gracias por escribirnos. Intentaremos responderte lo antes posible.');
+    	$request->session()->flash('success',' Person Technology te da la bienvenida. Intentaremos responderte lo antes posible.');
     	return Redirect::back();
     }
 }
