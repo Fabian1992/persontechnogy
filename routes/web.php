@@ -20,7 +20,12 @@ use Inertia\Inertia;
 */
 
 // Route::get('/', function () {
-//     return Inertia::render('Pages/Incio/Welcome');
+    // Artisan::call('cache:clear');
+    // Artisan::call('config:clear');
+    // Artisan::call('config:cache');
+	// Artisan::call('storage:link');
+	// Artisan::call('key:generate');
+	// Artisan::call('migrate:fresh --seed');
 // });
 Route::get('/',[WelcomeControllers::class,'index'])->name('home');
 Route::get('acerca-de-notros',[AboutControllers::class,'index'])->name('acerca');
